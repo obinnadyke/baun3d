@@ -50,11 +50,11 @@ Training/inference scripts and command-line will be publicly released soon.
 
 <div align="center">
   <img src="docs/liver_sag.png" alt="Sagittal view1" width="850"/>
-  <p><em>Boundary segmentation sample for Liver/Tumor</em></p>
+  <p><em>Boundary segmentation sample (Liver/Tumor)</em></p>
 </div>
 <div align="center">
   <img src="docs/pancreas_sag.png" alt="Sagittal view2" width="850"/>
-  <p><em>Boundary segmentation sample for Pancreas/Tumor</em></p>
+  <p><em>Boundary segmentation sample (Pancreas/Tumor)</em></p>
 </div>
 
 
