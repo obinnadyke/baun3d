@@ -33,7 +33,7 @@ data/
 
 
 ## Train | Test | Inference 
-Training/inference scripts and command-line will be publicly released soon. 
+The training and inference source-codes, and running commands will be publicly released soon. 
 
 ## Results 
 
