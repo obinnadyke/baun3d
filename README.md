@@ -59,5 +59,5 @@ Training/inference scripts and command-line will be publicly released soon.
 
 
 
-### Sponsored by
+#### Sponsorship:
 Linkou, Chang Gung Memorial Hospital Research Project, under grant no. CLRPG3H0017
