@@ -17,6 +17,10 @@ BAUN3D (Boundary-Attentive 3D-UNet) is a unique deep learning radiomics built fo
 
 ## Dataset
 
+- This network was trained with the medical segmentation decathlon (MSD) LiTS and Pancreas benchmark [datasets](https://drive.google.com/drive/folders/1HqEgzS8BV2c7xYNrZdEAnrHk7osJJ--2). 
+
+- Download link to our model weights will be updated later.
+
 ### Data Directory Structure
 ```
 data/
