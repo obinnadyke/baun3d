@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="docs/baun3d_logo.png" alt="" width="200"/>
+</div>
+
 # Automatic Segmentation of Tumor-Prone Organs in Medical CT Volumes with BAUN3D
 
 
