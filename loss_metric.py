@@ -1,4 +1,4 @@
-# loss_metric.py - Loss function and Metrics Computation Module (MIDL2026)
+# loss_metric.py - Loss function and Metrics Computation (c) itrustal.com
 
 import torch
 import torch.nn as nn
