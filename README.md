@@ -21,7 +21,7 @@ BAUN3D (Boundary-Attentive 3D-UNet) is a unique anatomy-aware deep learning radi
 - Download link to the model weights will be updated later.
 
 ### Data Directory Structure
-```
+
 data/
 ├── lits/
 │   ├── imagesTr/          # Training images (*.nii.gz)
@@ -32,7 +32,7 @@ data/
 │   ├── labelsTr/
 │   └── imagesTs/
 └── ...
-```
+
 
 
 ## Train | Test | Inference 
