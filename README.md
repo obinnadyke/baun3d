@@ -8,11 +8,11 @@ BAUN3D (Boundary-Attentive 3D-UNet) is a unique anatomy-aware deep learning radi
 
 
 ## System requirements
-```
+
 - Python ≥ 3.8
 - CUDA ≥ 11.8 (for GPU acceleration)
 - 10GB+ GPU memory per GPU
-```
+
 
 ## Dataset
 
