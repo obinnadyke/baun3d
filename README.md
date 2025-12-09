@@ -63,4 +63,4 @@ The training and inference source-codes, and running commands will be publicly r
 
 
 #### Acknowledgement:
-This work was supported by the Linkou, Chang Gung Memorial Hospital Research Project, under grant no. CLRPG3H0017
+Linkou, Chang Gung Memorial Hospital Research Project CLRPG3H0017
