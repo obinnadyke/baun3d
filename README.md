@@ -4,7 +4,7 @@
 
 ## Overview 
 
-BAUN3D (Boundary-Attentive 3D U-Net) is a unique deep learning-base radiomics framework built for the segmentation of organs and tumors in volumetric CT. Developed specifically for challenging tumor-prone organ segmentation tasks, BAUN3D is implemented with deformable cross attention mechanisms, gated boundary refinement module, and a composite loss objective for handling curriculum learning, extreme class imbalance, small tumor targets, and contour structural continuity.
+BAUN3D (Boundary-Attentive 3D U-Net) is a unique deep learning radiomics built for the segmentation of organs and tumors in volumetric CT images. It is developed specifically for contouring tumor-prone organs. The main implementation components comprises of: deformable cross attention mechanism, gated boundary refinement (GBR) module, and a composite loss objective for handling curriculum learning, extreme class imbalance, small tumor targets, and contour structural continuity.
 
 ---
 
@@ -56,3 +56,9 @@ Training/inference scripts and command-line will be publicly released soon.
   <img src="docs/pancreas_sag.png" alt="Sagittal view2" width="850"/>
   <p><em>Boundary segmentation sample for Pancreas/Tumor</em></p>
 </div>
+
+---
+
+## Sponsor
+
+Linkou, Chang Gung Memorial Hospital Research Project, under grant no. CLRPG3H0017
