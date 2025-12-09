@@ -1,4 +1,4 @@
-# config.py - Data-Specific Parameter Settings for BAUN3D
+# config.py - BAUN3D Data-Specific Parameter Settings (c) itrustal.com
 import os
 
 
@@ -60,7 +60,7 @@ class BaseConfig:
     gradient_clip = 1.0
     tumor_head_gradient_clip = 0.5
     mixed_precision = True
-    val_interval = 10   # Frequency for monitoring
+    val_interval = 10   # Frequency for viz monitoring
 
     # Augmentation
     aug_prob = 0.0
