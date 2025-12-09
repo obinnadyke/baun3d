@@ -38,9 +38,9 @@ data/
 ## Train | Test | Inference 
 The training and inference source-codes, and running commands will be publicly released soon. 
 
-## Results 
+## Outcomes
 
-### Numeric outcomes
+### Quantitative results
 
 
 | Dataset  | Organ Dice | Tumor Dice | Avg Dice | HD95 (mm)   |
@@ -49,7 +49,7 @@ The training and inference source-codes, and running commands will be publicly r
 | Pancreas | 0.84       | 0.81       | 0.83     | 4.83        |
 
 
-### Qualitative outcomes
+### Qualitative results
 
 <div align="center">
   <img src="docs/liver_sag.png" alt="Sagittal view1" width="850"/>
