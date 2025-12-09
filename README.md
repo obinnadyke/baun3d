@@ -4,8 +4,7 @@
 
 ## Overview 
 
-BAUN3D (Boundary-Attentive 3D-UNet) is a unique deep learning radiomics built for the segmentation of organs and tumors in volumetric CT images. It is developed specifically for contouring tumor-prone organs. The main implementation components comprises of: deformable cross attention mechanism, gated boundary refinement (GBR) module, and a composite loss objective for handling curriculum learning, extreme class imbalance, small tumor targets, and contour structural continuity.
-
+BAUN3D (Boundary-Attentive 3D-UNet) is a unique anatomy-aware deep learning radiomics built for the localization and segmentation of organs and tumors in volumetric CT images. Built specifically for contouring the challenging tumor-prone organs, the architecture comprises of: deformable cross attention mechanism, gated boundary refinement (GBR) module, and a composite loss objective function for handling curriculum learning, extreme class imbalance, small tumor targets, and contour structural continuity.
 
 
 ## System requirements
