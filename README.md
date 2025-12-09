@@ -1,4 +1,4 @@
-# Automatic Segmentation of Tumor-Prone Organs in Medical CT Volumes with BAUN3D
+# BAUN3D: Boundary-Attentive 3D-UNet for Automatic Segmentation of Tumor-Prone Organs in Medical CT Volumes
 
 <div align="center">
   <img src="docs/baun3d_logo.png" alt="" width="300"/>
@@ -6,7 +6,7 @@
 
 ## Overview 
 
-BAUN3D (Boundary-Attentive 3D-UNet) is a unique anatomy-aware deep learning radiomics for auto-localization and segmentation of organs and tumors in volumetric CT images. Built specifically for contouring the challenging tumor-prone organs, the architecture comprises of: deformable cross attention mechanism, gated boundary refinement (GBR) module, and a composite loss objective function for handling curriculum learning, extreme class imbalance, small tumor targets, and contour structural continuity.
+BAUN3D is a unique anatomy-aware deep learning radiomics for auto-localization and segmentation of organs and tumors in volumetric CT images. Built specifically for contouring the challenging tumor-prone organs, the architecture comprises of: deformable cross attention mechanism, gated boundary refinement (GBR) module, and a composite loss objective function for handling curriculum learning, extreme class imbalance, small tumor targets, and contour structural continuity.
 
 
 ## System requirements
