@@ -1,4 +1,4 @@
-# model.py - Main network Architecture (MIDL2026)
+# model.py - Main network Architecture (c) itrustal.com
 
 import torch
 import torch.nn as nn
