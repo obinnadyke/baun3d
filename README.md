@@ -62,5 +62,4 @@ The training and inference source-codes, and running commands will be publicly r
 
 
 ### Acknowledgement
-CAIM: Linkou, Chang Gung Memorial Hospital Research  
-(Project CLRPG3H0017)
+Supported by CAIM: Linkou, Chang Gung Memorial Hospital Research Project CLRPG3H0017
