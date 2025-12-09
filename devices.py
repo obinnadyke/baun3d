@@ -1,4 +1,5 @@
-# devices.py: Device manager for memory management, multi-GPU setup, model info (MIDL2026)
+# devices.py: Device manager for memory management (c) itrustal.com
+# multi-GPU setup, model info 
 
 import torch
 import torch.nn as nn
