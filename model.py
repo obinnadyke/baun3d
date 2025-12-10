@@ -1,4 +1,4 @@
-# model.py - Main network Architecture (c) itrustal.com
+# model.py - Main Network Architecture (c) itrustal.com
 
 import torch
 import torch.nn as nn
@@ -93,7 +93,7 @@ class DeformableAttention3d(nn.Module):
         return dec + out
 
 
-class EfficientMorphology3d(nn.Module):
+class Morphology3d(nn.Module):
     """Depthwise separable morphology"""
     def __init__(self, channels):
         super().__init__()
@@ -134,7 +134,7 @@ class BoundaryRefinement(nn.Module):
             nn.ReLU(inplace=True)
         )
 
-        self.morphology = EfficientMorphology3d(channels)
+        self.morphology = Morphology3d(channels)
 
         # Fusion
         self.fusion = nn.Conv3d(channels + reduced * 2 + channels, channels // 2, 1, bias=False)
@@ -252,10 +252,10 @@ class Decoder(nn.Module):
         att1 = self.att1(x1, y1)  # att1: base
         y1 = torch.cat([y1, att1], dim=1)  # y1: base*2
         y1 = self.rb1(y1)  # rb1: base*2 → base
-#--------------------------------------------------Start_add refine to dec
+        
         if use_refinement:
             y1 = self.ref1(y1, boundary_strength)
-#--------------------------------------------------End
+        
         y1 = self.head_dropout(y1) if self.training else y1
 
         out = self.head(y1)
