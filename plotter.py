@@ -1,4 +1,4 @@
-# plotter.py - Complete Visualization Module for BAUN3D (MIDL2026)
+# plotter.py - Complete Visualization Module for BAUN3D (c) itrustal.com
 
 import os
 import sys
