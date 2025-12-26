@@ -47,8 +47,8 @@ The training and inference source-codes, and running commands will be publicly r
 
 | Dataset  | Organ Dice | Tumor Dice | Avg Dice | HD95 (mm)   |
 |----------|------------|------------|----------|-------------|
-| LiTS     | 0.96       | 0.74       | 0.84     | 5.82        |
-| Pancreas | 0.84       | 0.81       | 0.83     | 4.83        |
+| LiTS     | 0.96       | 0.71       | 0.83     | 10.78       |
+| Pancreas | 0.91       | 0.78       | 0.84     | 7.55        |
 
 
 ### Qualitative results
