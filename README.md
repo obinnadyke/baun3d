@@ -38,7 +38,7 @@ data/
 
 
 ## Train | Test | Inference 
-The training and inference source-codes, and running commands will be publicly released soon. 
+The training and inference source-codes, and running commands will be availed soon. 
 
 ## Outcomes
 
