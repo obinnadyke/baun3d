@@ -55,14 +55,22 @@ The training and inference source-codes, and running commands will be availed so
 
 <div align="center">
   <img src="docs/liver_sag.png" alt="Sagittal view1" width="850"/>
-  <p><em>Boundary segmentation sample (Liver/Tumor)</em></p>
+  <p><em>Boundary segmentation sample (zoomed/flipped Liver/Tumor)</em></p>
 </div>
 <div align="center">
   <img src="docs/pancreas_sag.png" alt="Sagittal view2" width="850"/>
-  <p><em>Boundary segmentation sample (Pancreas/Tumor)</em></p>
+  <p><em>Boundary segmentation sample (zoomed/flipped Pancreas/Tumor)</em></p>
+</div>
+<div align="center">
+  <img src="docs/liv_multiview.png" alt="liver multiview1" width="850"/>
+  <p><em>Standard mutiview liver-tumor boundary segmentation</em></p>
+</div>
+<div align="center">
+  <img src="docs/panc_multiview.png" alt="Pancreas multiview2" width="850"/>
+  <p><em>Standard mutiview pancrea-tumor boundary segmentation</em></p>
 </div>
 
 
 
 ### Acknowledgements
-Development of this software was sponsored by CAIM: Linkou, Chang Gung Memorial Hospital Research Project, under grant no. CLRPG3H0017
+R&D of this software was sponsored by CAIM: Linkou, Chang Gung Memorial Hospital Research Project, under grant no. CLRPG3H0017
