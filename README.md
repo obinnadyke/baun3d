@@ -55,22 +55,22 @@ The training and inference source-codes, and running commands will be availed so
 
 <div align="center">
   <img src="docs/liver_sag.png" alt="Sagittal view1" width="850"/>
-  <p><em>Boundary segmentation sample (zoomed/flipped Liver/Tumor)</em></p>
+  <p><em>GT/Pred/Heatmap: Boundary segmentation sample (zoomed/flipped Liver-Tumor)</em></p>
 </div>
 <div align="center">
   <img src="docs/pancreas_sag.png" alt="Sagittal view2" width="850"/>
-  <p><em>Boundary segmentation sample (zoomed/flipped Pancreas/Tumor)</em></p>
+  <p><em>GT/Pred/Heatmap: Boundary segmentation sample (zoomed/flipped Pancreas-Tumor)</em></p>
 </div>
 <div align="center">
   <img src="docs/liv_multiview.png" alt="liver multiview1" width="850"/>
-  <p><em>Standard mutiview liver-tumor boundary segmentation</em></p>
+  <p><em>Standard GT/Pred/Heatmap: multiview liver-tumor boundary segmentation</em></p>
 </div>
 <div align="center">
   <img src="docs/panc_multiview.png" alt="Pancreas multiview2" width="850"/>
-  <p><em>Standard mutiview pancrea-tumor boundary segmentation</em></p>
+  <p><em>Standard GT/Pred/Heatmap: mutiview pancreas-tumor boundary segmentation</em></p>
 </div>
 
 
 
 ### Acknowledgements
-R&D of this software was sponsored by CAIM: Linkou, Chang Gung Memorial Hospital Research Project, under grant no. CLRPG3H0017
+The research and development of this software was sponsored by CAIM: Linkou, Chang Gung Memorial Hospital Research Project, under grant no. CLRPG3H0017
