@@ -54,11 +54,11 @@ The training and inference source-codes, and running commands will be availed so
 ### Qualitative results
 
 <div align="center">
-  <img src="" alt="Sagittal view1" width="850"/>
+  <img src="" alt="" width="850"/>
   <p><em> </em></p>
 </div>
 <div align="center">
-  <img src="" alt="Sagittal view2" width="850"/>
+  <img src="" alt="" width="850"/>
   <p><em> </em></p>
 </div>
 <div align="center">
