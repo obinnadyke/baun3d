@@ -54,14 +54,6 @@ The training and inference source-codes, and running commands will be availed so
 ### Qualitative results
 
 <div align="center">
-  <img src="" alt="" width="850"/>
-  <p><em> </em></p>
-</div>
-<div align="center">
-  <img src="" alt="" width="850"/>
-  <p><em> </em></p>
-</div>
-<div align="center">
   <img src="docs/liv_multiview.png" alt="liver multiview1" width="850"/>
   <p><em>GT/Pred/Heatmap: multiview liver-tumor boundary segmentation</em></p>
 </div>
