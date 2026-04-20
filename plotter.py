@@ -1,4 +1,4 @@
-# plotter.py - Visualization Module for BAUN3D | (c) itrustal.com [2026]
+# plotter.py - BAUN3D Visualization Module (c) itrustal.com [2026]
 
 import os
 import sys
