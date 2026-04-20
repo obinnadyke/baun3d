@@ -1,4 +1,4 @@
-# plotter.py - Complete Visualization Module for BAUN3D (c) itrustal.com
+# plotter.py - Visualization Module for BAUN3D | (c) itrustal.com [2026]
 
 import os
 import sys
@@ -51,6 +51,7 @@ class DatasetAnalyzer:
             if f.endswith('.nii') or f.endswith('.nii.gz')
         ])
 
+
     def collect_statistics(self):
         if len(self.image_files) == 0:
             print("[ANALYSIS] No images found, skipping statistics")
@@ -98,6 +99,7 @@ class DatasetAnalyzer:
                 continue
 
         return stats
+
 
     def generate_plots(self, stats):
         if stats is None:
@@ -219,6 +221,7 @@ def _safe_normalize(volume):
         return np.clip((volume - v_min) / (v_max - v_min), 0, 1)
     return np.zeros_like(volume)
 
+
 def _ensure_3d(volume):
     """Ensure volume is 3D (D, H, W)"""
     volume = np.asarray(volume)
@@ -227,15 +230,38 @@ def _ensure_3d(volume):
     if volume.ndim < 3: raise ValueError(f"Volume shape {volume.shape} invalid")
     return volume
 
+
 def _resize_slice(slice_arr, target_size=(256, 256), is_mask=False):
     """
-    Force-resize a 2D slice to a square target size to prevent aspect ratio distortion.
+    Force-resize a 2D slice to target size | prevent aspect ratio distortion
     """
     if cv2 is None: return slice_arr
 
+    # Preserve image aspect ratio
+    h, w = slice_arr.shape[:2]
+    aspect = w / h
+
+    if aspect > 1:  # Wide image
+        new_w = target_size[0]
+        new_h = int(new_w / aspect)
+    else:  # Tall image
+        new_h = target_size[1]
+        new_w = int(new_h * aspect)
+
     # INTER_NEAREST for masks (preserves integers), INTER_LINEAR for images
     interp = cv2.INTER_NEAREST if is_mask else cv2.INTER_LINEAR
-    return cv2.resize(slice_arr, target_size, interpolation=interp)
+    resized = cv2.resize(slice_arr, (new_w, new_h), interpolation=interp)
+    #return cv2.resize(slice_arr, target_size, interpolation=interp)
+
+    # Pad to square
+    pad_h = (target_size[1] - new_h) // 2
+    pad_w = (target_size[0] - new_w) // 2
+    padded = np.pad(resized, ((pad_h, target_size[1]-new_h-pad_h),
+                               (pad_w, target_size[0]-new_w-pad_w)),
+                    mode='constant', constant_values=0)
+
+    return padded
+
 
 def select_max_tumor_slice(gt_vol, organ_label=1, tumor_label=2):
     """
@@ -252,23 +278,24 @@ def select_max_tumor_slice(gt_vol, organ_label=1, tumor_label=2):
     if mask.sum() == 0:
         return gt_vol.shape[0]//2, gt_vol.shape[1]//2, gt_vol.shape[2]//2
 
-    # Sum along axes to find "thickest" part
-    sum_x = mask.sum(axis=(1, 2))
-    cx = np.argmax(sum_x)
+    sum_d = mask.sum(axis=(1, 2)) # Sum over H,W -> Profile along Depth
+    cd = np.argmax(sum_d)
 
-    sum_y = mask.sum(axis=(0, 2))
-    cy = np.argmax(sum_y)
+    sum_h = mask.sum(axis=(0, 2)) # Sum over D,W -> Profile along Height
+    ch = np.argmax(sum_h)
 
-    sum_z = mask.sum(axis=(0, 1))
-    cz = np.argmax(sum_z)
+    sum_w = mask.sum(axis=(0, 1)) # Sum over D,H -> Profile along Width
+    cw = np.argmax(sum_w)
 
-    return cx, cy, cz
+    return cd, ch, cw
+
 
 def _boundary_map(mask):
     if mask.sum() == 0: return np.zeros_like(mask, dtype=np.float32)
     return (binary_erosion(mask) ^ mask).astype(np.float32)
 
-def _create_boundary_overlay(image_slice, seg_slice, organ_label, tumor_label):
+
+def _create_boundary_overlay(image_slice, seg_slice, organ_label, tumor_label, mode='boundary'):
     """Draws boundaries on the image slice using OpenCV. Preserves the CT background."""
     if cv2 is None: return np.stack([image_slice]*3, axis=-1)
 
@@ -277,19 +304,41 @@ def _create_boundary_overlay(image_slice, seg_slice, organ_label, tumor_label):
     img_display = (image_slice * 255).astype(np.uint8)
     img_display = np.stack([img_display] * 3, axis=-1) # Grayscale to RGB
 
-    # Draw Organ (Red)
-    if (seg_slice == organ_label).any():
-        mask_uint8 = (seg_slice == organ_label).astype(np.uint8)
-        cnts, _ = cv2.findContours(mask_uint8, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        cv2.drawContours(img_display, cnts, -1, (255, 0, 0), 1)
+    if mode == 'boundary':
+        # Boundary Mode: Draw only edges
+        if (seg_slice == organ_label).any():
+            mask = (seg_slice == organ_label).astype(np.uint8)
+            kernel = np.ones((3, 3), np.uint8)
+            eroded = cv2.erode(mask, kernel, iterations=1)
+            boundary = mask ^ eroded
+            cnts, _ = cv2.findContours(boundary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            cv2.drawContours(img_display, cnts, -1, (255, 0, 0), 1)  # Red, 1=thickness
 
-    # Draw Tumor (Green)
-    if (seg_slice == tumor_label).any():
-        mask_uint8 = (seg_slice == tumor_label).astype(np.uint8)
-        cnts, _ = cv2.findContours(mask_uint8, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        cv2.drawContours(img_display, cnts, -1, (0, 255, 0), 1)
+        if (seg_slice == tumor_label).any():
+            mask = (seg_slice == tumor_label).astype(np.uint8)
+            kernel = np.ones((3, 3), np.uint8)
+            eroded = cv2.erode(mask, kernel, iterations=1)
+            boundary = mask ^ eroded
+            cnts, _ = cv2.findContours(boundary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            cv2.drawContours(img_display, cnts, -1, (0, 255, 0), 1)  # Green, 1=thickness
+
+    else:
+        # Mode ==' Filled': Apply Semi-transparent overlay
+        overlay = img_display.copy()
+
+        if (seg_slice == organ_label).any():
+            organ_mask = (seg_slice == organ_label)
+            overlay[organ_mask] = [255, 0, 0]  # Red
+
+        if (seg_slice == tumor_label).any():
+            tumor_mask = (seg_slice == tumor_label)
+            overlay[tumor_mask] = [0, 255, 0]  # Green
+
+        # Alpha blending: 60% image, 40% overlay
+        img_display = cv2.addWeighted(img_display, 0.6, overlay, 0.4, 0)
 
     return img_display
+
 
 # --- Main Visualization Function ---
 def visualize_segmentation_comparison_multiview(
@@ -299,7 +348,7 @@ def visualize_segmentation_comparison_multiview(
     out_path: str = 'comparison_multiview.png',
     mode: str = 'boundary',
     title: str = None,
-):
+    spacing=None):
     """
     Generates a 3x3 comparison plot
     1. Resizes all slices to 256x256
@@ -313,35 +362,35 @@ def visualize_segmentation_comparison_multiview(
         pred_volume = _ensure_3d(pred_volume)
 
         # --- SELECT BEST SLICES ---
-        cx, cy, cz = select_max_tumor_slice(gt_volume, organ_label, tumor_label)
+        #cx, cy, cz = select_max_tumor_slice(gt_volume, organ_label, tumor_label)
+        cd, ch, cw = select_max_tumor_slice(gt_volume, organ_label, tumor_label)
 
         # --- EXTRACT & RESIZE VIEWS ---
         # Target display resolution
         DISP_SIZE = (256, 256)
 
-        def process_slice(slc, is_mask=False):
-            # 1. Rotate 90 degrees
-            rotated = np.rot90(slc)
-            # 2. Ensure memory layout
+        def process_slice(slc, is_mask=False, rotate_k=2):
+            # Rotate to orientate (k=2 is upright, k=1 is sideways)
+            rotated = np.rot90(slc, k=rotate_k)
+            # Resize to square aspect ratio (prevents stretching)
             contiguous = np.ascontiguousarray(rotated)
-            # 3. Resize to square
             resized = _resize_slice(contiguous, DISP_SIZE, is_mask)
             return resized
 
-        # Row 1: AXIAL (Slice Z)
-        ax_img  = process_slice(volume[:, :, cz], False)
-        ax_gt   = process_slice(gt_volume[:, :, cz], True)
-        ax_pred = process_slice(pred_volume[:, :, cz], True)
+        # Row 1: AXIAL (Top) - Slice along Depth (Index 0)
+        ax_img  = process_slice(volume[cd, :, :], False)
+        ax_gt   = process_slice(gt_volume[cd, :, :], True)
+        ax_pred = process_slice(pred_volume[cd, :, :], True)
 
-        # Row 2: CORONAL (Slice Y)
-        cor_img  = process_slice(volume[:, cy, :], False)
-        cor_gt   = process_slice(gt_volume[:, cy, :], True)
-        cor_pred = process_slice(pred_volume[:, cy, :], True)
+        # Row 2: CORONAL (Middle) - Slice along Height (Index 1)
+        cor_img  = process_slice(volume[:, ch, :], False)
+        cor_gt   = process_slice(gt_volume[:, ch, :], True)
+        cor_pred = process_slice(pred_volume[:, ch, :], True)
 
-        # Row 3: SAGITTAL (Slice X)
-        sag_img  = process_slice(volume[cx, :, :], False)
-        sag_gt   = process_slice(gt_volume[cx, :, :], True)
-        sag_pred = process_slice(pred_volume[cx, :, :], True)
+        # Row 3: SAGITTAL (Bottom) - Slice along Width (Index 2)
+        sag_img  = process_slice(volume[:, :, cw], False)
+        sag_gt   = process_slice(gt_volume[:, :, cw], True)
+        sag_pred = process_slice(pred_volume[:, :, cw], True)
 
         # Setup 3 rows, 3 columns Figure (with minimal spacing, tight layout)
         fig, axes = plt.subplots(3, 3, figsize=(12, 12), dpi=150)
@@ -353,17 +402,17 @@ def visualize_segmentation_comparison_multiview(
         def plot_cell(ax, img, gt, pred, col_type, row_name):
             ax.axis('off')
 
-            if col_type == 'GT':
-                overlay = _create_boundary_overlay(img, gt, organ_label, tumor_label)
+            if col_type == 'Normalized-GT':
+                overlay = _create_boundary_overlay(img, gt, organ_label, tumor_label, mode)
                 ax.imshow(overlay, aspect='equal')
-                if row_name: ax.set_title(f"{row_name} - GT", fontsize=10, fontweight='normal', pad=4)
+                if row_name: ax.set_title(f"{row_name} - Normalized-GT", fontsize=10, fontweight='normal', pad=4)
 
-            elif col_type == 'Pred':
-                overlay = _create_boundary_overlay(img, pred, organ_label, tumor_label)
+            elif col_type == 'Prediction':
+                overlay = _create_boundary_overlay(img, pred, organ_label, tumor_label, mode)
                 ax.imshow(overlay, aspect='equal')
-                if row_name: ax.set_title(f"{row_name} - Pred", fontsize=10, fontweight='normal', pad=4)
+                if row_name: ax.set_title(f"{row_name} - Prediction", fontsize=10, fontweight='normal', pad=4)
 
-            elif col_type == 'Heat':
+            elif col_type == 'Heatmap':
                 # Compute heatmap -> Recalculate boundaries on the RESIZED masks
                 gt_b = _boundary_map((gt == organ_label) | (gt == tumor_label))
                 pred_b = _boundary_map((pred == organ_label) | (pred == tumor_label))
@@ -374,23 +423,23 @@ def visualize_segmentation_comparison_multiview(
                 # We use the previous colorbar placement logic here
                 plt.colorbar(im, ax=ax, fraction=0.04, pad=0.08, ticks=[0.0, 0.2, 0.4, 0.6, 0.8, 1.0])
 
-                if row_name: ax.set_title(f"{row_name} - Heat", fontsize=10, fontweight='normal', pad=4)
+                if row_name: ax.set_title(f"{row_name} - Heatmap", fontsize=10, fontweight='normal', pad=4)
                 return im
 
         # Row 1
-        plot_cell(axes[0,0], ax_img, ax_gt, ax_pred, 'GT', 'AXIAL')
-        plot_cell(axes[0,1], ax_img, ax_gt, ax_pred, 'Pred', 'AXIAL')
-        plot_cell(axes[0,2], ax_img, ax_gt, ax_pred, 'Heat', 'AXIAL')
+        plot_cell(axes[0,0], ax_img, ax_gt, ax_pred, 'Normalized-GT', 'AXIAL')
+        plot_cell(axes[0,1], ax_img, ax_gt, ax_pred, 'Prediction', 'AXIAL')
+        plot_cell(axes[0,2], ax_img, ax_gt, ax_pred, 'Heatmap', 'AXIAL')
 
         # Row 2
-        plot_cell(axes[1,0], cor_img, cor_gt, cor_pred, 'GT', 'CORONAL')
-        plot_cell(axes[1,1], cor_img, cor_gt, cor_pred, 'Pred', 'CORONAL')
-        plot_cell(axes[1,2], cor_img, cor_gt, cor_pred, 'Heat', 'CORONAL')
+        plot_cell(axes[1,0], cor_img, cor_gt, cor_pred, 'Normalized-GT', 'CORONAL')
+        plot_cell(axes[1,1], cor_img, cor_gt, cor_pred, 'Prediction', 'CORONAL')
+        plot_cell(axes[1,2], cor_img, cor_gt, cor_pred, 'Heatmap', 'CORONAL')
 
         # Row 3
-        plot_cell(axes[2,0], sag_img, sag_gt, sag_pred, 'GT', 'SAGITTAL')
-        plot_cell(axes[2,1], sag_img, sag_gt, sag_pred, 'Pred', 'SAGITTAL')
-        plot_cell(axes[2,2], sag_img, sag_gt, sag_pred, 'Heat', 'SAGITTAL')
+        plot_cell(axes[2,0], sag_img, sag_gt, sag_pred, 'Normalized-GT', 'SAGITTAL')
+        plot_cell(axes[2,1], sag_img, sag_gt, sag_pred, 'Prediction', 'SAGITTAL')
+        plot_cell(axes[2,2], sag_img, sag_gt, sag_pred, 'Heatmap', 'SAGITTAL')
 
         plt.savefig(out_path, dpi=150) # Removed bbox_inches='tight' to respect subplots_adjust
         plt.close(fig)
@@ -613,8 +662,7 @@ class TrainingPlotter:
             gc.collect()
 
 
-# Post-Training Analysis
-# In plotter.py (as a standalone function)
+# Post-Training Analysis (as a standalone function)
 def plot_confusion_matrix(y_true, y_pred, class_names, output_path, dataset_name=''):
     """
     Plot confusion matrix for segmentation classes
@@ -661,7 +709,7 @@ def plot_confusion_matrix(y_true, y_pred, class_names, output_path, dataset_name
 
 #------------------------------------------------------------------------------
 
-# Top-level API Functions
+# API Functions
 def analyze_dataset(config, data_dir, output_dir):
     try:
         analyzer = DatasetAnalyzer(config, data_dir, output_dir)
