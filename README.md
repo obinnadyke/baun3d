@@ -6,19 +6,19 @@
 
 ## Overview 
 
-BAUN3D is a unique anatomy-aware deep learning radiomics for the localization and auto-segmentation of organs and tumors in volumetric CT images. Built specifically for contouring the challenging tumor-prone organs, the architecture comprises of: deformable cross attention mechanism, gated boundary refinement (GBR) module, and a composite loss objective function for handling curriculum learning, extreme class imbalance, small tumor targets, and contour structural continuity.
+BAUN3D is a unique human anatomy-aware supervised deep learning radiomics for the localization and auto-segmentation of organs and tumors in volumetric CT images. Built specifically for contouring the challenging tumor-prone abdominal organs, the BAUN3D architecture comprises of: deformable cross attention (DCA), gated boundary refinement (GBR) module, and a composite loss objective function for handling empty masks, curriculum learning, extreme class imbalance, small tumor targets, and contour structural continuity.
 
 
 ## System requirements
 
 - Python ≥ 3.8
 - CUDA ≥ 11.8 (for GPU acceleration)
-- 10GB+ GPU memory per GPU
+- 20GB+ GPU memory
 
 
 ## Dataset
 
-- This version of BAUN3D model was trained and validated with the medical segmentation decathlon (MSD) LiTS and Pancreas benchmark [datasets](https://drive.google.com/drive/folders/1HqEgzS8BV2c7xYNrZdEAnrHk7osJJ--2). 
+- This version of the BAUN3D model was trained and validated with the medical segmentation decathlon (MSD) LiTS and Pancreas benchmark [datasets](https://drive.google.com/drive/folders/1HqEgzS8BV2c7xYNrZdEAnrHk7osJJ--2). 
 
 - Download link to the model weights will be updated later.
 
