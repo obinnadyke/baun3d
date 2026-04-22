@@ -6,7 +6,7 @@ class BaseConfig:
     # Model Architecture
     in_channels = 1
     base_channels = 48
-    num_stages = 5
+    #num_stages = 5
     deep_supervision = True
     use_ema = True
     ema_decay = 0.995
@@ -17,9 +17,9 @@ class BaseConfig:
     organ_label = 1  # organ label
 
     # Optimization
-    learning_rate = 5e-4
+    learning_rate = 3e-4
     base_lr = 5e-4
-    weight_decay = 3e-5
+    weight_decay = 2e-5
 
     # Scheduler
     scheduler = 'cosine_warmup'
@@ -29,12 +29,12 @@ class BaseConfig:
     reduce_on_plateau_factor = 0.5
     reduce_on_plateau_min_lr = 5e-6
     cosine_eta_min_factor = 0.05
-    cosine_T_max = 100
+    cosine_T_max = 150
 
     # Loss
-    dice_weight = 0.25
+    dice_weight = 0.45
     focal_tversky_weight = 0.45
-    boundary_weight = 0.08
+    boundary_weight = 0.1
 
     # Tumor weighting
     tumor_loss_weight = 0.3
@@ -81,13 +81,13 @@ class BaseConfig:
     mixup_alpha = 0.2
 
     # Tumor Augmentation
-    tumor_aug_prob = 0.5
+    tumor_aug_prob = 0.5 # or 0.3
     tumor_copy_paste = True
 
     # Caching
     cache_rate = 0.0
 
-    # Split
+    # Split ratio
     train_split = 0.7
 
     # Patch Sampling
@@ -102,9 +102,9 @@ class BaseConfig:
     # Validation
     val_eval_mode = 'sliding'
     val_window_size = (96, 128, 128)
-    val_stride = (48, 64, 64)
+    val_stride = (48, 64, 64) # Memory constrained
     val_patch_until_epoch = 50
-    fullval_every = 5
+    fullval_every = 20
     val_max_samples = 15
 
     # Progressive Validation
@@ -116,7 +116,7 @@ class BaseConfig:
 
     # Logging
     log_gradients = False
-    compute_val_hd95 = False
+    compute_val_hd95 = True
     fast_validation = True
 
 #------------------------------------------------------------------------------
@@ -127,13 +127,13 @@ class LiTSConfig(BaseConfig):
     num_classes = 3
 
     # Patch Sampling
-    patch_size = (64, 96, 96)
+    patch_size = (64, 96, 96) # Memory constrained
     batch_size = 2
-    epochs = 400
+    epochs = 450
 
     # Class Weights
-    organ_weight = 0.10
-    tumor_weight = 0.90
+    organ_weight = 0.15
+    tumor_weight = 0.85
 
     # Image Preprocessing
     window_level = 60
@@ -142,17 +142,17 @@ class LiTSConfig(BaseConfig):
     target_spacing = (1.5, 1.5, 2.0)
 
     # Optimization
-    learning_rate = 3e-4  # was 1e-4
+    learning_rate = 2e-4 
     base_lr = 5e-4
 
     # Scheduling
     scheduler = 'cosine_warmup'
     use_reduce_on_plateau = False
-    boundary_warmup_start = 20
-    tumor_ramp_epochs = 30
+    boundary_warmup_start = 35
+    tumor_ramp_epochs = 50
     tumor_loss_weight_end = 0.3
 
-#----------------------------LiTSConfig Ends-----------------------------------
+#-------LiTSConfig Ends---------#
 
 class PancreasConfig(BaseConfig):
     dataset_name = 'pancreas'
@@ -161,9 +161,9 @@ class PancreasConfig(BaseConfig):
     tumor_label = 2
 
     # Patch Sampling
-    patch_size = (64, 96, 96)
+    patch_size = (64, 96, 96) # Memory constrained
     batch_size = 2
-    epochs = 400
+    epochs = 450
 
     # Tumor sampling
     tumor_patch_ratio = 0.70
@@ -181,18 +181,18 @@ class PancreasConfig(BaseConfig):
     target_spacing = (1.5, 1.5, 2.0)
 
     # OPTIMIZATION
-    learning_rate = 5e-4     # was 8e-4 but (3e-4) recommended
-    base_lr = 5e-4           # was 8e-4
-    weight_decay = 1e-5      # Reduce regularization
+    learning_rate = 1e-4 
+    base_lr = 5e-4 
+    weight_decay = 1e-5  
     tumor_gradient_multiplier = 1.2
 
     # SCHEDULING
     scheduler = 'cosine_warmup'
     use_reduce_on_plateau = False
-    boundary_warmup_start = 30
-    boundary_warmup_epochs = 35
+    boundary_warmup_start = 35
+    boundary_warmup_epochs = 50
     tumor_ramp_epochs = 40
-    tumor_loss_weight_end = 0.30    # Increased
+    tumor_loss_weight_end = 0.30 
 
     # GRADIENT CLIPPING
     gradient_clip = 0.5
@@ -206,42 +206,7 @@ class PancreasConfig(BaseConfig):
     curriculum_epochs = 40
     tumor_loss_weight_start = 0.15
 
-#--------------------------PancreasConfig Ends---------------------------------
-
-class ProstateConfig(BaseConfig):
-    dataset_name = 'prostate'
-    num_classes = 3
-    organ_label = 1
-    tumor_label = 2
-
-    # Input Channels
-    in_channels = 2
-
-    # Patch Sampling
-    patch_size = (32, 128, 128)
-    batch_size = 2
-    epochs = 350
-
-    # Tumor sampling
-    tumor_patch_ratio = 0.80
-    organ_patch_ratio = 0.20
-    random_patch_ratio = 0.0
-
-    # Image Preprocessing (soft-tissue/pelvis)
-    window_level = 70
-    window_width = 350
-    clip_range = (-150, 250)
-    target_spacing = (1.0, 1.0, 2.0) # Higher XY resolution
-
-    # OPTIMIZATION
-    learning_rate = 5e-4
-    base_lr = 5e-4
-    tumor_gradient_multiplier = 1.5
-
-    # Scheduling
-    boundary_warmup_start = 27
-
-#------------------------------ProstateConfig Ends-----------------------------
+#-------PancreasConfig Ends---------#
 
 
 # Factory Functions
@@ -250,8 +215,7 @@ def get_config(dataset_name):
     configs = {
         'lits': LiTSConfig,
         'pancreas': PancreasConfig,
-        'prostate': ProstateConfig,
-        'kits': BaseConfig,     # Add proper config if needed
+        'kits': BaseConfig     # Add proper config (for more data)
 
     }
 
