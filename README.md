@@ -64,5 +64,5 @@ The training and inference source-codes, and running commands will be availed so
 
 
 
-### Acknowledgements
-This work was sponsored by the Centre for Artificial Intelligence in Medicine (CAIM): Linkou, Chang Gung Memorial Hospital, under project grant no. CLRPG3H0017
+## Acknowledgements
+This work was sponsored by CAIM: Linkou, Chang Gung Memorial Hospital, under project grant no. CLRPG3H0017.
