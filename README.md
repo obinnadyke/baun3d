@@ -40,6 +40,43 @@ data/
 ## Train | Test | Inference 
 The training and inference source-codes, and running commands will be availed soon. 
 
+## Comparative analysis of preprocessed data stats
+- Pancreas vs Liver: Tumor voxel distribution
+<table>
+  <tr>
+    <td align="center">
+      <img src="docs/panc_tumor_dist.png" width="90%" />
+    </td>
+    <td align="center">
+      <img src="docs/liv_tumor_dist.png" width="90%" />
+    </td>
+  </tr>
+</table>
+
+- Pancreas vs Liver: Organ voxel distribution
+<table>
+  <tr>
+    <td align="center">
+      <img src="docs/panc_vol_dist.png" width="90%" />
+    </td>
+    <td align="center">
+      <img src="docs/liv_vol_dist.png" width="90%" />
+    </td>
+  </tr>
+</table>
+
+- Pancreas vs Liver: organ/tumor class distribution
+<table>
+  <tr>
+    <td align="center">
+      <img src="docs/panc_class_dist.png" width="90%" />
+    </td>
+    <td align="center">
+      <img src="docs/liv_class_dist.png" width="90%" />
+    </td>
+  </tr>
+</table>
+
 ## Outcomes
 
 ### Quantitative results
