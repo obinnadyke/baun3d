@@ -41,7 +41,7 @@ data/
 The training and inference source-codes, and running commands will be availed soon. 
 
 ## Comparative analysis of preprocessed data stats
-- Pancreas vs Liver: Tumor voxel distribution
+- Pancreas vs Liver: tumor voxel distribution
 <table>
   <tr>
     <td align="center">
@@ -53,7 +53,7 @@ The training and inference source-codes, and running commands will be availed so
   </tr>
 </table>
 
-- Pancreas vs Liver: Organ voxel distribution
+- Pancreas vs Liver: organ voxel distribution
 <table>
   <tr>
     <td align="center">
@@ -65,7 +65,7 @@ The training and inference source-codes, and running commands will be availed so
   </tr>
 </table>
 
-- Pancreas vs Liver: organ/tumor class distribution
+- Pancreas vs Liver: organ-tumor class distribution
 <table>
   <tr>
     <td align="center">
@@ -92,11 +92,11 @@ The training and inference source-codes, and running commands will be availed so
 
 <div align="left">
   <img src="docs/liv_multiview.png" alt="liver_sag" width="600"/>
-  <p><em>GT/Pred/Heatmap: liver-tumor boundary segmentation</em></p>
+  <p><em>GT/Pred/Heatmap: liver-tumor boundary segmentation (Organ=red; Tumor=green)</em></p>
 </div>
 <div align="left">
   <img src="docs/panc_multiview.png" alt="pancreas_sag" width="600"/>
-  <p><em>GT/Pred/Heatmap: pancreas-tumor boundary segmentation</em></p>
+  <p><em>GT/Pred/Heatmap: pancreas-tumor boundary segmentation (Organ=red; Tumor=green)</em></p>
 </div>
 
 
