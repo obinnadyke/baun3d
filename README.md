@@ -77,7 +77,7 @@ The training and inference source-codes, and running commands will be availed so
   </tr>
 </table>
 
-## Experimemntal Outcomes
+## Experimental Outcomes
 
 ### Quantitative results
 
