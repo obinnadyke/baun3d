@@ -1,7 +1,4 @@
-| | |
-|---|---|
-| <img src="docs/baun3d.png" width="300"/> | # BAUN3D <br> Boundary-Attentive 3D-UNet for Automatic Segmentation of Tumor-Prone Organs in Volumetric CT |
-
+# <img src="docs/baun3d.png" width="105" align="left"> BAUN3D: Boundary-Attentive 3D-UNet for Automatic Segmentation of Tumor-Prone Organs in Volumetric CT
 
 
 ## Overview 
