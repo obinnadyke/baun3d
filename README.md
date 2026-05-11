@@ -107,7 +107,7 @@ BibTex:
               Tumor-Prone Organs in Medical CT Volumes},
   booktitle = {Medical Imaging with Deep Learning (MIDL)-Short Papers},
   year      = {2026},
-  address   = {Tapei, Taiwan},
+  address   = {Taipei, Taiwan},
   url       = {https://openreview.net/pdf?id=5TQK2jYr2a}
 }
 ```
