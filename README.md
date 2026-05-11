@@ -98,6 +98,20 @@ The training and inference source-codes, and running commands will be availed so
 </div>
 
 
+## Citation 
+BibTex: 
+```
+@inproceedings{BAUN3D2026,
+  author    = {Agbodike, Obinna and Kuo, Chang-Fu},
+  title     = {Boundary-Attentive 3D-UNet for Auto-Segmentation of
+              Tumor-Prone Organs in Medical CT Volumes},
+  booktitle = {Medical Imaging with Deep Learning (MIDL)-Short Papers},
+  year      = {2026},
+  address   = {Tapei, Taiwan},
+  url       = {https://openreview.net/pdf?id=5TQK2jYr2a}
+}
+```
+
 
 ## Acknowledgements
 This work was sponsored by CAIM: Linkou, Chang Gung Memorial Hospital, under project grant no. CLRPG3H0017.
