@@ -13,6 +13,14 @@ BAUN3D is a unique human anatomy-aware supervised deep learning radiomics for th
 - 20GB+ GPU memory
 
 
+## Key Architectural Innovation 
+
+The process pipeline of BAUN3D's decoder-based Gated Boundary Refinement (GBR) implementation
+<div align="center">
+  <img src="docs/GBR_.jpg" alt="" width="500"/>
+</div>
+
+
 ## Dataset
 
 - This version of the BAUN3D model was trained and validated with the medical segmentation decathlon (MSD) LiTS and Pancreas benchmark [datasets](https://drive.google.com/drive/folders/1HqEgzS8BV2c7xYNrZdEAnrHk7osJJ--2). 
@@ -33,9 +41,14 @@ data/
 └── ...
 ```
 
+## Training CMD 
+Set training flags accordingly, as exemplified below: 
+```
+python train.py --dataset lits --data_dir ./data --output_dir ./output/LiTS_Final --batch_size 2 --epochs 400 --skip_analysis
+```
 
-## Train | Test | Inference 
-The training and inference source-codes, and running commands will be availed soon. 
+## Test | Inference 
+The inference source-code, and running commands will be availed soon. 
 
 ## Comparative analysis of preprocessed data stats 
 
