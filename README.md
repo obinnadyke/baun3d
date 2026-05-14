@@ -13,9 +13,11 @@ BAUN3D is a unique human anatomy-aware supervised deep learning radiomics for th
 - 20GB+ GPU memory
 
 
-## Key Architectural Innovation 
+## Architectural Innovation 
 
-The process pipeline of BAUN3D's decoder-based Gated Boundary Refinement (GBR) implementation
+The BAUN3D's decoder stages were optimized with the implementation of: 
+- Deformable Cross Attention (DCA) and
+- Gated Boundary Refinement (GBR) morphological operators
 <div align="left">
   <img src="docs/GBR_.jpg" alt="" width="500"/>
 </div>
